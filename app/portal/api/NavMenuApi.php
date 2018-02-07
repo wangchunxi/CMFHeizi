@@ -8,28 +8,18 @@
 // +----------------------------------------------------------------------
 // | Author: 老猫 <thinkcmf@126.com>
 // +----------------------------------------------------------------------
-namespace app\admin\api;
-
-use app\admin\model\NavMenuModel;
+namespace app\portal\api;
+use app\lib\HomeMenu;
 
 class NavMenuApi
 {
-    // 导航菜单模板数据源 用于模板设计
-    public function index($param = [])
-    {
-        $navMenuModel = new NavMenuModel();
 
-        $where = [];
 
-        if (!empty($param['keyword'])) {
-            $where['name'] = ['like', "%{$param['keyword']}%"];
-        }
-        if (!empty($param['id'])) {
-            $where['nav_id'] = $param['id'];
-        }
-
-        return $navMenuModel->where($where)->select();
+    public function getMenu(){
+        $controller =  strtolower(request()->controller());
+        $homeMenu =  new HomeMenu('true',$controller);
+        $menu = $homeMenu->getMenu();
+        return $menu;
     }
-
 
 }

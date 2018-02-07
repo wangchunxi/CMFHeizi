@@ -1,0 +1,41 @@
+<div class="header">
+
+    <div class="nav">
+        <div class="logo"><a href=""><img src="__TMPL__/public/assets/picture/logo.png"></a></div>
+        <div class="nav_icon"></div>
+        <div class="side_close"></div>
+        <ul id="main-navigation" >
+            <navigation nav-id="1" root="">
+                <?php
+                    $curClass= '';
+                    $controller = request()->controller();
+                    $url = explode('/',$menu['href']);
+                    if(strtolower($url[2]) == strtolower($controller)){
+                        $curClass = 'on';
+                    }
+
+                ?>
+                <navigationMenu root="li" class="menu-item menu-item-level-{$level} {$curClass} ">
+                    <a href="{$menu.href|default=''}" target="{$menu.target|default=''}">{$menu.name|default=''}</a>
+                </navigationMenu>
+            </navigation>
+        </ul>
+        <!--<ul>-->
+            <!--&lt;!&ndash;<li   class='on' ><a href="{:Url('index/index')}" target="_self">首页/HOME</a></li>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<li ><a href="{:Url('news/index')}" target="_self">资讯/NEWS</a></li>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<li  rel='dropmenu2'><a href="{:Url('sample/index')}" target="_self">样品/SAMPLE</a></li>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<li  rel='dropmenu3'><a href="{:Url('aboutus/index')}" target="_self">关于/ABOUT</a></li>&ndash;&gt;-->
+
+            <!--<slides id="$menu">-->
+
+            <!--</slides >-->
+
+        <!--</ul>-->
+        <div class="header_info">
+            <p><img  src='__TMPL__/public/assets/picture/code.jpg'/></p>
+        </div>
+    </div>
+</div>

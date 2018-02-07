@@ -10,19 +10,22 @@
 // +----------------------------------------------------------------------
 namespace cmf\controller;
 
-use think\Db;
 use app\admin\model\ThemeModel;
+use app\portal\api\NavMenuApi;
+use think\Db;
+use think\Request;
 use think\View;
 
 class HomeBaseController extends BaseController
 {
-
+    protected $more;
     public function _initialize()
     {
         // 监听home_init
         hook('home_init');
         parent::_initialize();
         $siteInfo = cmf_get_site_info();
+        $this->more = null;
         View::share('site_info', $siteInfo);
     }
 
@@ -66,10 +69,13 @@ class HomeBaseController extends BaseController
         if (file_exists_case($themeSuccessTmpl)) {
             config('dispatch_success_tmpl', $themeSuccessTmpl);
         }
-
-
     }
-
+    protected  function  getMore($template = ''){
+        $template = $this->parseTemplate($template);
+        $more     = $this->getThemeFileMore($template);
+        $this->more =  $more;
+        return $more;
+    }
     /**
      * 加载模板输出
      * @access protected
@@ -82,7 +88,11 @@ class HomeBaseController extends BaseController
     protected function fetch($template = '', $vars = [], $replace = [], $config = [])
     {
         $template = $this->parseTemplate($template);
-        $more     = $this->getThemeFileMore($template);
+        if(empty($this->more)){
+            $more = $this->getThemeFileMore($template);
+        }else{
+            $more =$this->more;
+        }
         $this->assign('theme_vars', $more['vars']);
         $this->assign('theme_widgets', $more['widgets']);
         return parent::fetch($template, $vars, $replace, $config);
@@ -164,6 +174,7 @@ class HomeBaseController extends BaseController
         foreach ($files as $file) {
             $oldMore = json_decode($file['more'], true);
             if (!empty($oldMore['vars'])) {
+                //dump($oldMore);
                 foreach ($oldMore['vars'] as $varName => $var) {
                     $vars[$varName] = $var['value'];
                 }

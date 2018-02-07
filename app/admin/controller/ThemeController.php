@@ -790,7 +790,7 @@ class ThemeController extends AdminBaseController
         }
 
         $multi = empty($dataSource['multi']) ? false : $dataSource['multi'];
-
+        //dump($items);
         foreach ($items as $key => $item) {
             if (empty($item['parent_id'])) {
                 $item['parent_id'] = 0;

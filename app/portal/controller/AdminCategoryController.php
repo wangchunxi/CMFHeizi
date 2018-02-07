@@ -89,7 +89,7 @@ class AdminCategoryController extends AdminBaseController
 
         $data = $this->request->param();
 
-        $result = $this->validate($data, 'PortalCategory');
+        $result = $this->validate($data, 'PortalCategoryModel');
 
         if ($result !== true) {
             $this->error($result);
@@ -163,7 +163,7 @@ class AdminCategoryController extends AdminBaseController
     {
         $data = $this->request->param();
 
-        $result = $this->validate($data, 'PortalCategory');
+        $result = $this->validate($data, 'PortalCategoryModel');
 
         if ($result !== true) {
             $this->error($result);

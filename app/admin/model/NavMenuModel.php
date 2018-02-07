@@ -71,9 +71,9 @@ class NavMenuModel extends Model
         return $navMenusTree;
     }
 
-    private function parseNavMenu4Home(&$navMenus)
+    private function parseNavMenu4Home($navMenus)
     {
-        foreach ($navMenus as $key => $navMenu) {
+        foreach ($navMenus as $key => &$navMenu) {
             $href    = htmlspecialchars_decode($navMenu['href']);
             $hrefOld = $href;
             if (strpos($hrefOld, "{") !== false) {
